@@ -8,8 +8,6 @@ from flask import request, make_response
 from sql import create_connection
 from sql import execute_query
 from sql import execute_read_query
-import datetime
-from datetime import date
 
 # setting up an application name
 app = flask.Flask(__name__) #  sets up the application
