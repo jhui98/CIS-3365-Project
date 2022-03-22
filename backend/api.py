@@ -16,7 +16,7 @@ app.config["DEBUG"] = True # allow to show errors in browser
 # starting route
 @app.route('/', methods=['GET']) # goes home and determine if server exists
 def home():
-    return "<h1> Welcome my final project API!</h1>"
+    return "<h1> Welcome our CIS 3365 Project API!</h1>"
 
 @app.route('/api/item', methods=['GET']) # get a single user by id
 def get_item_info():
