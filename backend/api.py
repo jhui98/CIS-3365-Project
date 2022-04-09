@@ -115,6 +115,97 @@ def get_emprole_info():
     return jsonify(emproleInfo)
 # -- whole table pulls --
 
+# -- delete methods --
+@app.route('/api/deleteItem', methods=['DELETE']) # get a single user by id
+def delete_item():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
+
+        # query string
+        query = f"DELETE FROM item WHERE ItemID = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
+
+@app.route('/api/deleteBrand', methods=['DELETE']) # get a single user by id
+def delete_brand():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
+
+        # query string
+        query = f"DELETE FROM brand WHERE BrandID = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
+
+@app.route('/api/deleteDepartment', methods=['DELETE']) # get a single user by id
+def delete_department():
+    pass
+
+@app.route('/api/deleteReseller', methods=['DELETE']) # get a single user by id
+def delete_reseller():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
+
+        # query string
+        query = f"DELETE FROM reseller WHERE ResellerID = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
+
+@app.route('/api/deleteDistrubutor', methods=['DELETE']) # get a single user by id
+def delete_distributor():
+    pass
+
+@app.route('/api/deleteCustomer', methods=['DELETE']) # get a single user by id
+def delete_customer():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
+
+        # query string
+        query = f"DELETE FROM customer WHERE CustID = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
+
+@app.route('/api/deleteEmployee', methods=['DELETE']) # get a single user by id
+def delete_employee():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
+
+        # query string
+        query = f"DELETE FROM employee WHERE EmpID = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
+
+@app.route('/api/deleteEmpRole', methods=['DELETE']) # get a single user by id
+def delete_emprole():
+    pass
+# -- delete methods --
+
+
+
 
 
 
