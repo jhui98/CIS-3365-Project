@@ -13,10 +13,22 @@ from sql import execute_read_query
 app = flask.Flask(__name__) #  sets up the application
 app.config["DEBUG"] = True # allow to show errors in browser
 
-# -- whole table pulls --
 @app.route('/', methods=['GET']) # goes home and determine if server exists
 def home():
     return "<h1> Welcome our CIS 3365 Project API!</h1>"
+
+# -- whole table pulls --
+@app.route('/api/transaction', methods=['GET']) # get a single user by id
+def get_transaction_info():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    # query string
+    query = "SELECT * FROM transaction ORDER BY TransNum" 
+    itemInfo = execute_read_query(conn, query) # execute query in DB
+    print(itemInfo)
+
+    return jsonify(itemInfo)
 
 @app.route('/api/item', methods=['GET']) # get a single user by id
 def get_item_info():
@@ -78,18 +90,6 @@ def get_distributor_info():
 
     return jsonify(distributorInfo)
 
-@app.route('/api/customer', methods=['GET']) # get a single user by id
-def get_customer_info():
-    #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
-    # query string
-    query = "SELECT * FROM customer ORDER BY CustName" 
-    customerInfo = execute_read_query(conn, query) # execute query in DB
-    print(customerInfo)
-
-    return jsonify(customerInfo)
-
 @app.route('/api/employee', methods=['GET']) # get a single user by id
 def get_employee_info():
     #  establish databse connection
@@ -109,6 +109,30 @@ def get_emprole_info():
 
     # query string
     query = "SELECT * FROM employeerole ORDER BY RoleName" 
+    emproleInfo = execute_read_query(conn, query) # execute query in DB
+    print(emproleInfo)
+
+    return jsonify(emproleInfo)
+
+@app.route('/api/customer', methods=['GET']) # get a single user by id
+def get_customer_info():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    # query string
+    query = "SELECT * FROM customer ORDER BY customerLoytalty" 
+    emproleInfo = execute_read_query(conn, query) # execute query in DB
+    print(emproleInfo)
+
+    return jsonify(emproleInfo)
+
+@app.route('/api/custLoyalty', methods=['GET']) # get a single user by id
+def get_custLoyalty_info():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    # query string
+    query = "SELECT * FROM custLoyalty ORDER BY LoyaltyID" 
     emproleInfo = execute_read_query(conn, query) # execute query in DB
     print(emproleInfo)
 
