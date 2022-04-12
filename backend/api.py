@@ -216,6 +216,22 @@ def api_distributor_post():
     execute_query(conn, query)
     return 'Add request successful'
 
+@app.route('/api/reseller', methods = ['POST'])
+def api_reseller_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    name = request_data['name']
+    email = request_data['email']
+    disid = request_data['disid']
+
+    # query to insert to table
+    query = "INSERT INTO reseller (ResellerName, ResellerEmail, DistributorID) VALUES ('%s', '%s', '%s')" % (name, email, disid)
+    execute_query(conn, query)
+    return 'Add request successful'
+
+
 @app.route('/api/employee', methods = ['POST'])
 def api_employee_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
@@ -282,7 +298,7 @@ def api_transaction_post():
     cusid = request_data['cusid']
 
     # query to insert to table
-    query = "INSERT INTO transaction (TransNum, ItemID, date, CusID) VALUES (%s, %s, '%s', %s)" % (transnum, itemid, date,)
+    query = "INSERT INTO transaction (TransNum, ItemID, date, CusID) VALUES (%s, %s, '%s', %s)" % (transnum, itemid, date, cusid)
     execute_query(conn, query)
     return 'Add request successful'
 
