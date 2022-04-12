@@ -142,7 +142,7 @@ def get_custLoyalty_info():
 # --insert statements
 
 @app.route('/api/brand', methods = ['POST'])
-def api_animal_post():
+def api_brand_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
     request_data = request.get_json()
 
@@ -156,7 +156,7 @@ def api_animal_post():
     return 'Add request successful'
 
 @app.route('/api/custLoyalty', methods = ['POST'])
-def api_animal_post():
+def api_loyalty_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
     request_data = request.get_json()
 
@@ -170,7 +170,7 @@ def api_animal_post():
     return 'Add request successful'
 
 @app.route('/api/customer', methods = ['POST'])
-def api_animal_post():
+def api_customer_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
     request_data = request.get_json()
 
@@ -190,7 +190,7 @@ def api_animal_post():
     return 'Add request successful'
     
 @app.route('/api/department', methods = ['POST'])
-def api_animal_post():
+def api_department_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
     request_data = request.get_json()
 
@@ -203,7 +203,7 @@ def api_animal_post():
     return 'Add request successful'
 
 @app.route('/api/distributor', methods = ['POST'])
-def api_animal_post():
+def api_distributor_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
     request_data = request.get_json()
 
@@ -216,7 +216,7 @@ def api_animal_post():
     return 'Add request successful'
 
 @app.route('/api/employee', methods = ['POST'])
-def api_animal_post():
+def api_employee_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
     request_data = request.get_json()
 
@@ -236,7 +236,7 @@ def api_animal_post():
     return 'Add request successful'
 
 @app.route('/api/emprole', methods = ['POST'])
-def api_animal_post():
+def api_emprole_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
     request_data = request.get_json()
 
@@ -252,7 +252,7 @@ def api_animal_post():
     return 'Add request successful'
     
 @app.route('/api/item', methods = ['POST'])
-def api_animal_post():
+def api_item_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
     request_data = request.get_json()
 
@@ -270,7 +270,7 @@ def api_animal_post():
     return 'Add request successful'
 
 @app.route('/api/transaction', methods = ['POST'])
-def api_animal_post():
+def api_transaction_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
     request_data = request.get_json()
 
