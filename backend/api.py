@@ -139,6 +139,7 @@ def get_custLoyalty_info():
     return jsonify(emproleInfo)
 # -- whole table pulls --
 
+
 # --insert statements
 
 @app.route('/api/brand', methods = ['POST'])
