@@ -266,7 +266,7 @@ def api_item_post():
     resellerid = request_data['resellerid']
 
     # query to insert to table
-    query = "INSERT INTO item (ItemName, BrandID, DeptID, ItemPrice, ItemRevenue, ItemProfit, ResellerID) VALUES ('%s', %s, %s, %s, %s, %s)" % (name, brandid, deptid, price, revenue, resellerid)
+    query = "INSERT INTO item (ItemName, BrandID, DeptID, ItemPrice, ItemRevenue, ResellerID) VALUES ('%s', %s, %s, %s, %s, %s)" % (name, brandid, deptid, price, revenue, resellerid)
     execute_query(conn, query)
     return 'Add request successful'
 
