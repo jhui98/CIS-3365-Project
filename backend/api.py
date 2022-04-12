@@ -139,6 +139,7 @@ def get_custLoyalty_info():
     return jsonify(emproleInfo)
 # -- whole table pulls --
 
+
 # --insert statements
 
 # TODO: brand insert
@@ -152,8 +153,6 @@ def get_custLoyalty_info():
 # TODO: transaction insert
 
 # --insert statements
-
-
 
 
 # -- delete statements --
