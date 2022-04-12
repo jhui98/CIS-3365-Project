@@ -1,6 +1,6 @@
 # Jacob Hui - 1664245
-# CIS 3368 - 16242 - Dobretsberger
-# Final Project - API - Fall 2021
+# CIS 3365 - 192925 - Amirpanahi
+# Final Project - API - Fall 2021are u 
 
 import flask
 from flask import jsonify
@@ -142,15 +142,149 @@ def get_custLoyalty_info():
 
 # --insert statements
 
-# TODO: brand insert
-# TODO: custLoyalty insert
-# TODO: customer insert
-# TODO: department insert
-# TODO: distributor insert
-# TODO: employee insert
-# TODO: employeeRole insert
-# TODO: item insert
-# TODO: transaction insert
+@app.route('/api/brand', methods = ['POST'])
+def api_animal_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    brandname = request_data['brandname']
+    resellerid = request_data['resellerid']
+
+    # query to insert to table
+    query = "INSERT INTO brand (BrandName, BrandReseller) VALUES ('%s', %s)" % (brandname, resellerid)
+    execute_query(conn, query)
+    return 'Add request successful'
+
+@app.route('/api/custLoyalty', methods = ['POST'])
+def api_animal_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    loyaltyname = request_data['loyaltyname']
+    discountp = request_data['discountp']
+
+    # query to insert to table
+    query = "INSERT INTO custLoyalty (LoyaltyName, DiscountP) VALUES ('%s', %s)" % (loyaltyname, discountp)
+    execute_query(conn, query)
+    return 'Add request successful'
+
+@app.route('/api/customer', methods = ['POST'])
+def api_animal_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    name = request_data['name']
+    loyalty = request_data['loyalty']
+    email = request_data['email']
+    phone = request_data['phone']
+    address = request_data['address']
+    city = request_data['city']
+    state = request_data['state']
+    zip = request_data['zip']
+
+    # query to insert to table
+    query = "INSERT INTO customer (CustName, customerLoyalty, CustEmail, CustPhone, CustAddress, CustCity, CustState, CustZip) VALUES ('%s', %s, '%s', '%s', '%s', '%s', '%s', %s)" % (name, loyalty, email, phone, address, city, state, zip)
+    execute_query(conn, query)
+    return 'Add request successful'
+    
+@app.route('/api/department', methods = ['POST'])
+def api_animal_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    name = request_data['name']
+
+    # query to insert to table
+    query = "INSERT INTO department (DeptName) VALUES ('%s')" % (name)
+    execute_query(conn, query)
+    return 'Add request successful'
+
+@app.route('/api/distributor', methods = ['POST'])
+def api_animal_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    name = request_data['distributorname']
+
+    # query to insert to table
+    query = "INSERT INTO distributor (DistributorName) VALUES ('%s')" % (name)
+    execute_query(conn, query)
+    return 'Add request successful'
+
+@app.route('/api/employee', methods = ['POST'])
+def api_animal_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    active = request_data['active']
+    name = request_data['name']
+    email = request_data['email']
+    phone = request_data['phone']
+    address = request_data['address']
+    city = request_data['city']
+    state = request_data['state']
+    zip = request_data['zip']
+
+    # query to insert to table
+    query = "INSERT INTO employee (ActiveEmp, EmpName, EmpEmail, EmpPhone, EmpAddress, EmpCity, EmpState, EmpZip) VALUES (%s, '%s', '%s', '%s', '%s', '%s', '%s', %s)" % (active, name, email, phone, address, city, state, zip)
+    execute_query(conn, query)
+    return 'Add request successful'
+
+@app.route('/api/emprole', methods = ['POST'])
+def api_animal_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    roleid = request_data['roleid']
+    rolename = request_data['rolename']
+    empid = request_data['empid']
+
+
+    # query to insert to table
+    query = "INSERT INTO employeeRole (RoleID, RoleName, EmpID) VALUES (%s, '%s', %s)" % (roleid, rolename, empid)
+    execute_query(conn, query)
+    return 'Add request successful'
+    
+@app.route('/api/item', methods = ['POST'])
+def api_animal_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    name = request_data['name']
+    brandid = request_data['brandid']
+    deptid = request_data['deptid']
+    price = request_data['price']
+    revenue = request_data['revenue']
+    resellerid = request_data['resellerid']
+
+    # query to insert to table
+    query = "INSERT INTO item (ItemName, BrandID, DeptID, ItemPrice, ItemRevenue, ItemProfit, ResellerID) VALUES ('%s', %s, %s, %s, %s, %s)" % (name, brandid, deptid, price, revenue, resellerid)
+    execute_query(conn, query)
+    return 'Add request successful'
+
+@app.route('/api/transaction', methods = ['POST'])
+def api_animal_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    transnum = request_data['transnum']
+    itemid = request_data['itemid']
+    date = request_data['date']
+    cusid = request_data['cusid']
+
+    # query to insert to table
+    query = "INSERT INTO transaction (TransNum, ItemID, date, CusID) VALUES (%s, %s, '%s', %s)" % (transnum, itemid, date,)
+    execute_query(conn, query)
+    return 'Add request successful'
 
 # --insert statements
 
