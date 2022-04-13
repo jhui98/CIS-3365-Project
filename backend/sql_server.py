@@ -14,5 +14,5 @@ def execute_query(connection, query):
     for i in cursor:
         print(i)
 
-query = 'SELECT * FROM dbo.[Test Table]'
+query = 'SELECT * FROM dbo.[item]'
 execute_query(conn, query)
