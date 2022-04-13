@@ -216,22 +216,6 @@ def api_distributor_post():
     execute_query(conn, query)
     return 'Add request successful'
 
-@app.route('/api/reseller', methods = ['POST'])
-def api_reseller_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
-    request_data = request.get_json()
-
-    # stores all columns except for id
-    name = request_data['name']
-    email = request_data['email']
-    disid = request_data['disid']
-
-    # query to insert to table
-    query = "INSERT INTO reseller (ResellerName, ResellerEmail, DistributorID) VALUES ('%s', '%s', '%s')" % (name, email, disid)
-    execute_query(conn, query)
-    return 'Add request successful'
-
-
 @app.route('/api/employee', methods = ['POST'])
 def api_employee_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
@@ -286,6 +270,21 @@ def api_item_post():
     execute_query(conn, query)
     return 'Add request successful'
 
+@app.route('/api/reseller', methods = ['POST'])
+def api_reseller_post():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # stores all columns except for id
+    name = request_data['name']
+    email = request_data['email']
+    disid = request_data['disid']
+
+    # query to insert to table
+    query = "INSERT INTO reseller (ResellerName, ResellerEmail, DistributorID) VALUES ('%s', '%s', '%s')" % (name, email, disid)
+    execute_query(conn, query)
+    return 'Add request successful'    
+
 @app.route('/api/transaction', methods = ['POST'])
 def api_transaction_post():
     conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
@@ -303,6 +302,182 @@ def api_transaction_post():
     return 'Add request successful'
 
 # --insert statements
+
+# --update statements
+
+@app.route('/api/brand', methods = ['PUT'])
+def api_brand_put():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = "UPDATE brand SET %s = '%s' WHERE BrandID = %s" % (key, val, idToUpdate)
+        execute_query(conn, query)
+    return 'Put request successful'
+
+@app.route('/api/custLoyalty', methods = ['PUT'])
+def api_loyalty_put():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = "UPDATE custLoyalty SET %s = '%s' WHERE LoyaltyID = %s" % (key, val, idToUpdate)
+        execute_query(conn, query)
+    return 'Put request successful'
+
+@app.route('/api/customer', methods = ['PUT'])
+def api_customer_put():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = "UPDATE customer SET %s = '%s' WHERE CustID = %s" % (key, val, idToUpdate)
+        execute_query(conn, query)
+    return 'Put request successful'
+    
+@app.route('/api/department', methods = ['PUT'])
+def api_department_put():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = "UPDATE department SET %s = '%s' WHERE DeptID = %s" % (key, val, idToUpdate)
+        execute_query(conn, query)
+    return 'Put request successful'
+
+@app.route('/api/distributor', methods = ['PUT'])
+def api_distributor_put():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = "UPDATE distributor SET %s = '%s' WHERE DistributorID = %s" % (key, val, idToUpdate)
+        execute_query(conn, query)
+    return 'Put request successful'
+
+
+@app.route('/api/employee', methods = ['PUT'])
+def api_employee_put():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = "UPDATE employee SET %s = '%s' WHERE EmpID = %s" % (key, val, idToUpdate)
+        execute_query(conn, query)
+    return 'Put request successful'
+
+@app.route('/api/emprole', methods = ['PUT'])
+def api_emprole_put():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = "UPDATE employeeRole SET %s = '%s' WHERE ID = %s" % (key, val, idToUpdate)
+        execute_query(conn, query)
+    return 'Put request successful'
+    
+@app.route('/api/item', methods = ['PUT'])
+def api_item_put():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = "UPDATE item SET %s = '%s' WHERE ItemID = %s" % (key, val, idToUpdate)
+        execute_query(conn, query)
+    return 'Put request successful'
+
+@app.route('/api/reseller', methods = ['PUT'])
+def api_reseller_put():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = "UPDATE reseller SET %s = '%s' WHERE ResellerID = %s" % (key, val, idToUpdate)
+        execute_query(conn, query)
+    return 'Put request successful'
+
+@app.route('/api/transaction', methods = ['PUT'])
+def api_transaction_put():
+    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = "UPDATE transaction SET %s = '%s' WHERE id = %s" % (key, val, idToUpdate)
+        execute_query(conn, query)
+    return 'Put request successful'
+
+# -- update statements -- 
+
 
 
 # -- delete statements --
