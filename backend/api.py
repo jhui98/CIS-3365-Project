@@ -281,7 +281,7 @@ def api_reseller_post():
     disid = request_data['disid']
 
     # query to insert to table
-    query = "INSERT INTO reseller (ResellerName, ResellerEmail, DistributorID) VALUES ('%s', '%s', '%s')" % (name, email, disid)
+    query = "INSERT INTO reseller (ResellerName, ResellerEmail, DistributorID) VALUES ('%s', '%s', %s)" % (name, email, disid)
     execute_query(conn, query)
     return 'Add request successful'    
 
