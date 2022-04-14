@@ -715,7 +715,149 @@ def MostProfit():
     execute_query(conn, query) # execute query in DB
     return "GET REQUEST SUCCESSFUL"
 
-# @app.route('/api/', methods=['GET']) # Zachary Arroyo
+@app.route('/api/HighestSellingPrice', methods=['GET']) # Adedeji Akingbola
+def HighestSellingPrice():
+    #  establish databse connection
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
+    # query string
+    query = """SELECT
+            reseller.ResellerName AS 'NAME',
+            brand.BrandName AS 'Brand',
+            item.ItemName AS 'Item Name',
+            item.ItemPrice AS 'Item Cost',
+            item.ItemRevenue AS 'Selling Price'
+            FROM item
+            Join brand ON item.BrandID = brand.BrandID
+            Join reseller ON brand.BrandReseller = reseller.ResellerID
+            Join distributor ON reseller.DistributorID = distributor.DistributorID
+            order by item.ItemRevenue DESC"""
+    execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
+
+# TODO: Need input
+@app.route('/api/PriceRangeForProducts', methods=['GET']) # Min Jun Kim
+def PriceRangeForProducts():
+    #  establish databse connection
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
+    # query string
+    query = """SELECT
+            item.itemID AS 'Item ID',
+            item.ItemName AS 'Item Name',
+            brand.BrandName AS 'Brand Name',
+            department.DeptName AS 'Department Name',
+            item.ItemPrice AS 'Item Price',
+            item.ItemRevenue AS 'Item Revenue',
+            item.ItemProfit AS 'Item Profit'
+            FROM transac
+            Join item ON transac.ItemID = item.ItemID
+            Join brand ON item.BrandID = brand.BrandID
+            Join department ON item.DeptID = department.DeptID
+            Where ItemPrice between 0 and 20
+            ORDER by item.ItemPrice ASC;"""
+    execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
+
+@app.route('/api/AnnualSalesTrend', methods=['GET']) # Min Jun Kim
+def AnnualSalesTrend():
+    #  establish databse connection
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
+    # query string
+    query = """SELECT
+            transac.TransNum As 'transac number',
+            transac.date As 'Date',
+            item.itemID AS 'Item ID',
+            item.ItemName AS 'Item Name',
+            brand.BrandName AS 'Brand Name',
+            department.DeptName AS 'Department Name',
+            item.ItemPrice AS 'Item Price',
+            item.ItemRevenue AS 'Item Revenue',
+            item.ItemProfit AS 'Item Profit'
+            FROM transac
+            Join item ON transac.ItemID = item.ItemID
+            Join brand ON item.BrandID = brand.BrandID
+            Join department ON item.DeptID = department.DeptID
+            WHERE DATE BETWEEN DATEADD(YEAR, -1, CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP
+            ORDER BY transac.date DESC"""
+    execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
+
+@app.route('/api/ProteinPreworkoutMonthly', methods=['GET']) # Cuong Le
+def ProteinPreworkoutMonthly():
+    #  establish databse connection
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
+    # query string
+    query = """SELECT
+            transac.TransNum AS 'transac Number',
+            transac.date AS ' transac Date',
+            item.ItemName AS 'Product',
+            brand.BrandName AS 'Brand',
+            department.DeptName AS 'Department',
+            item.ItemProfit AS 'Profit'
+            FROM transac
+            join item ON transac.ItemID = item.ItemID
+            Join brand On item.BrandID = brand.BrandID
+            join department ON item.DeptID = department.DeptID
+            WHERE DATE BETWEEN DATEADD(MONTH, -1, CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP
+            and (department.DeptName = 'Protein Powder' OR department.DeptName = 'Preworkout')"""
+    execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
+
+@app.route('/api/ProteinPreworkoutAnnual', methods=['GET']) # Cuong Le
+def ProteinPreworkoutAnnual():
+    #  establish databse connection
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
+    # query string
+    query = """SELECT
+            transac.TransNum AS 'transac Number',
+            transac.date AS ' transac Date',
+            item.ItemName AS 'Product',
+            brand.BrandName AS 'Brand',
+            department.DeptName AS 'Department',
+            item.ItemProfit AS 'Profit'
+            FROM transac
+            join item ON transac.ItemID = item.ItemID
+            Join brand On item.BrandID = brand.BrandID
+            join department ON item.DeptID = department.DeptID
+            WHERE DATE BETWEEN DATEADD(YEAR, -1, CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP
+            and (department.DeptName = 'Protein Powder' OR department.DeptName = 'Preworkout')"""
+    execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
+
+@app.route('/api/TransactionLoyaltyLevel', methods=['GET']) # Philip Eriksson
+def TransactionLoyaltyLevel():
+    #  establish databse connection
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
+    # query string
+    query = """SELECT
+            transac.TransNum AS 'transac Number',
+			item.ItemName AS 'Product',
+            custLoyalty.LoyaltyName AS 'Customer Loyalty',
+			customer.CustName AS 'Customer'
+            FROM transac
+            join item ON transac.ItemID = item.ItemID
+            join customer ON transac.CustID = customer.CustID
+            join custLoyalty ON customer.customerLoyalty = custLoyalty.LoyaltyID"""
+    execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
+
+@app.route('/api/TransactionDiscountLevel', methods=['GET']) # Philip Eriksson
+def TransactionDiscountLevel():
+    #  establish databse connection
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
+    # query string
+    query = """SELECT
+            transac.TransNum AS 'transac Number',
+			item.ItemName AS 'Product',
+            custLoyalty.DiscountP AS 'Loyalty %',
+			customer.CustName AS 'Customer'
+            FROM transac
+            join item ON transac.ItemID = item.ItemID
+            join customer ON transac.CustID = customer.CustID
+            join custLoyalty ON customer.customerLoyalty = custLoyalty.LoyaltyID"""
+    execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
+
+# @app.route('/api/', methods=['GET']) # 
 # def ():
 #     #  establish databse connection
 #     conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
