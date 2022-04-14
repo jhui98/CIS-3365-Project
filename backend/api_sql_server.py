@@ -23,7 +23,6 @@ def get_transac_info():
     # query string
     query = "SELECT * FROM transac ORDER BY TransNum" 
     itemInfo = execute_query(conn, query) # execute query in DB
-    print(itemInfo)
     return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/item', methods=['GET']) # get a single user by id
@@ -33,7 +32,6 @@ def get_item_info():
     # query string
     query = "SELECT * FROM item ORDER BY ItemName" 
     itemInfo = execute_query(conn, query) # execute query in DB
-    print(itemInfo)
     return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/brand', methods=['GET']) # get a single user by id
@@ -43,7 +41,6 @@ def get_brand_info():
     # query string
     query = "SELECT * FROM brand ORDER BY BrandName" 
     brandInfo = execute_query(conn, query) # execute query in DB
-    print(brandInfo)
     return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/department', methods=['GET']) # get a single user by id
@@ -53,7 +50,6 @@ def get_department_info():
     # query string
     query = "SELECT * FROM department ORDER BY DeptName" 
     deptInfo = execute_query(conn, query) # execute query in DB
-    print(deptInfo)
     return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/reseller', methods=['GET']) # get a single user by id
@@ -63,7 +59,6 @@ def get_reseller_info():
     # query string
     query = "SELECT * FROM reseller ORDER BY ResellerName" 
     resellerInfo = execute_query(conn, query) # execute query in DB
-    print(resellerInfo)
     return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/distributor', methods=['GET']) # get a single user by id
@@ -73,7 +68,6 @@ def get_distributor_info():
     # query string
     query = "SELECT * FROM distributor ORDER BY DistributorName" 
     distributorInfo = execute_query(conn, query) # execute query in DB
-    print(distributorInfo)
     return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/employee', methods=['GET']) # get a single user by id
@@ -83,7 +77,6 @@ def get_employee_info():
     # query string
     query = "SELECT * FROM employee ORDER BY EmpName" 
     employeeInfo = execute_query(conn, query) # execute query in DB
-    print(employeeInfo)
     return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/emprole', methods=['GET']) # get a single user by id
@@ -93,7 +86,6 @@ def get_emprole_info():
     # query string
     query = "SELECT * FROM employeerole ORDER BY RoleName" 
     emproleInfo = execute_query(conn, query) # execute query in DB
-    print(emproleInfo)
     return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/customer', methods=['GET']) # get a single user by id
@@ -103,7 +95,6 @@ def get_customer_info():
     # query string
     query = "SELECT * FROM customer ORDER BY customerLoytalty" 
     emproleInfo = execute_query(conn, query) # execute query in DB
-    print(emproleInfo)
     return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/custLoyalty', methods=['GET']) # get a single user by id
@@ -113,7 +104,6 @@ def get_custLoyalty_info():
     # query string
     query = "SELECT * FROM custLoyalty ORDER BY LoyaltyID" 
     emproleInfo = execute_query(conn, query) # execute query in DB
-    print(emproleInfo)
     return "GET REQUEST SUCCESSFUL"
 # -- whole table pulls --
 
