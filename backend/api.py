@@ -459,7 +459,6 @@ def api_transaction_put():
 # -- update statements -- 
 
 
-
 # -- delete statements --
 @app.route('/api/deleteItem', methods=['DELETE']) # get a single user by id
 def delete_item():
@@ -566,8 +565,8 @@ def delete_emprole():
         return "DELETE REQUEST SUCESSFUL"
     return "ERROR NO ID PROVIDED"
 
-@app.route('/api/customerDelete', methods=['DELETE']) # get a single user by id
-def delete_customer():
+@app.route('/api/employeeDelete', methods=['DELETE']) # get a single user by id
+def delete_employee():
     #  establish databse connection
     conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
 
@@ -575,7 +574,7 @@ def delete_customer():
         id = request.args['id'] # save id to local var
 
         # query string
-        query = f"DELETE FROM customer WHERE CustID = {id}" # delete where id 
+        query = f"DELETE FROM employee WHERE EmpID = {id}" # delete where id 
         execute_query(conn, query) # execute query in DB
 
         return "DELETE REQUEST SUCESSFUL"
@@ -605,12 +604,121 @@ def delete_transac():
         id = request.args['id'] # save id to local var
 
         # query string
-        query = f"DELETE FROM transac WHERE id = {id}" # delete where id 
+        query = f"DELETE FROM transac WHERE id = {id}" # where id 
         execute_query(conn, query) # execute query in DB
 
         return "DELETE REQUEST SUCESSFUL"
     return "ERROR NO ID PROVIDED"
 # -- delete methods --
+
+# -- reports --
+@app.route('/api/itemsSoldByDistributor', methods=['GET']) # Jacob Hui
+def itemsSoldByDistributor():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    # query string
+    query = """SELECT
+            distributor.DistributorName AS 'Distributor',
+            brand.BrandName AS 'Brand',
+            item.ItemName AS 'Item Name',
+            item.ItemPrice AS 'Item Cost',
+            item.ItemRevenue AS 'Selling Price',
+            item.ItemProfit AS 'Profit'
+            FROM item
+            Join brand ON item.BrandID = brand.BrandID
+            Join reseller ON brand.BrandReseller = reseller.ResellerID
+            Join distributor ON reseller.DistributorID = distributor.DistributorID;"""
+    execute_query(conn, query) # execute query in DB
+
+@app.route('/api/LowProfitItems', methods=['GET']) # Jacob Hui
+def LowProfitItems():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    # query string
+    query = """SELECT
+            brand.BrandName AS 'Brand',
+            item.ItemName AS 'Item Name',
+            item.ItemProfit AS 'Profit',
+            item.ItemPrice AS 'Item Cost',
+            item.ItemRevenue AS 'Selling Price',
+            reseller.ResellerName AS 'Reseller',
+            reseller.ResellerEmail AS 'Email',
+            distributor.DistributorName AS 'Distributor'
+            FROM item
+            Join brand ON item.BrandID = brand.BrandID
+            Join reseller ON brand.BrandReseller = reseller.ResellerID
+            Join distributor ON reseller.DistributorID = distributor.DistributorID
+            WHERE item.ItemProfit < 10
+            ORDER BY item.ItemProfit ASC;"""
+    execute_query(conn, query) # execute query in DB
+
+
+@app.route('/api/ItemsSoldByReseller', methods=['GET']) # Zachary Arroyo
+def ItemsSoldByReseller():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+    request_data = request.get_json()
+
+    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
+    idToUpdate = request_data['id']
+    request_data.pop('id')
+
+    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    for key in request_data.keys():
+        val = request_data[key]
+        # key and val variables change with each for loop step
+        query = f"""SELECT
+            reseller.ResellerName AS 'Reseller',
+            distributor.DistributorName AS 'Distributor',
+            item.ItemName AS 'Product',
+            brand.BrandName AS 'Brand',
+            department.DeptName AS 'Department',
+            item.ItemPrice AS 'Buying Price',
+            item.ItemRevenue AS 'Selling Price',
+            item.ItemProfit AS 'Profit'
+            FROM item
+            Join brand ON item.BrandID = brand.BrandID
+            Join department ON item.DeptID = department.DeptID
+            Join reseller ON brand.BrandReseller = reseller.ResellerID
+            Join distributor ON reseller.DistributorID = distributor.DistributorID
+            WHERE reseller.{key} = '{val}'"""
+        execute_query(conn, query)
+    return 'request successful'
+
+@app.route('/api/ItemsSoldWithinAWeek', methods=['GET']) # Zachary Arroyo
+def ItemsSoldWithinAWeek():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    # query string
+    query = """SELECT
+            transac.TransNum As 'Transaction #',
+            transac.date As 'Date',
+            item.itemID AS 'Item ID',
+            item.ItemName AS 'Product',
+            brand.BrandName AS 'Brand',
+            department.DeptName AS 'Department',
+            item.ItemPrice AS 'Buying Price',
+            item.ItemRevenue AS 'Selling Price',
+            item.ItemProfit AS 'Profit'
+            FROM transac
+            Join item ON transac.ItemID = item.ItemID
+            Join brand ON item.BrandID = brand.BrandID
+            Join department ON item.DeptID = department.DeptID
+            WHERE DATE BETWEEN DATEADD(DAY, -7, CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP
+            ORDER BY transac.date DESC"""
+    execute_query(conn, query) # execute query in DB
+
+# @app.route('/api/', methods=['GET']) # Zachary Arroyo
+# def ():
+#     #  establish databse connection
+#     conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+#     # query string
+#     query = """"""
+#     execute_query(conn, query) # execute query in DB
 
 # -- reports --
 
