@@ -661,11 +661,7 @@ def ItemsSoldByReseller():
     conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
     request_data = request.get_json()
 
-    # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
-    idToUpdate = request_data['id']
-    request_data.pop('id')
-
-    # for loop that repeats for each and every key in request_data, which no longer has the ID key. this allows every change wanted to be processed in one request.
+    # for loop that repeats for each and every key in request_data
     for key in request_data.keys():
         val = request_data[key]
         # key and val variables change with each for loop step
@@ -685,7 +681,6 @@ def ItemsSoldByReseller():
             Join distributor ON reseller.DistributorID = distributor.DistributorID
             WHERE reseller.{key} = '{val}'"""
         execute_query(conn, query)
-    return 'request successful'
 
 @app.route('/api/ItemsSoldWithinAWeek', methods=['GET']) # Zachary Arroyo
 def ItemsSoldWithinAWeek():
