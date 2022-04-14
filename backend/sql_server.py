@@ -16,8 +16,8 @@ def execute_query(connection, query):
 
     for i in cursor:
         values.append(i)
-        # print(i)
-    print(jsonify(values))
+        print(i)
+    # print(jsonify(values))
 
 query = 'SELECT * FROM dbo.[item]'
 execute_query(conn, query)

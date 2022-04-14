@@ -5,9 +5,8 @@
 import flask
 from flask import jsonify
 from flask import request, make_response
-from sql import create_connection
-from sql import execute_query
-from sql import execute_read_query
+import pyodbc
+from sql_server import execute_query
 
 # setting up an application name
 app = flask.Flask(__name__) #  sets up the application
@@ -18,113 +17,112 @@ def home():
     return "<h1> Welcome our CIS 3365 Project API!</h1>"
 
 # -- whole table pulls --
-@app.route('/api/transaction', methods=['GET']) # get a single user by id
-def get_transaction_info():
+@app.route('/api/transac', methods=['GET']) # get a single user by id
+def get_transac_info():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
-    query = "SELECT * FROM transaction ORDER BY TransNum" 
+    query = "SELECT * FROM transac ORDER BY TransNum" 
     itemInfo = execute_query(conn, query) # execute query in DB
     print(itemInfo)
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/item', methods=['GET']) # get a single user by id
 def get_item_info():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = "SELECT * FROM item ORDER BY ItemName" 
     itemInfo = execute_query(conn, query) # execute query in DB
     print(itemInfo)
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/brand', methods=['GET']) # get a single user by id
 def get_brand_info():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = "SELECT * FROM brand ORDER BY BrandName" 
     brandInfo = execute_query(conn, query) # execute query in DB
     print(brandInfo)
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/department', methods=['GET']) # get a single user by id
 def get_department_info():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = "SELECT * FROM department ORDER BY DeptName" 
     deptInfo = execute_query(conn, query) # execute query in DB
     print(deptInfo)
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/reseller', methods=['GET']) # get a single user by id
 def get_reseller_info():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = "SELECT * FROM reseller ORDER BY ResellerName" 
     resellerInfo = execute_query(conn, query) # execute query in DB
     print(resellerInfo)
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/distributor', methods=['GET']) # get a single user by id
 def get_distributor_info():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = "SELECT * FROM distributor ORDER BY DistributorName" 
     distributorInfo = execute_query(conn, query) # execute query in DB
     print(distributorInfo)
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/employee', methods=['GET']) # get a single user by id
 def get_employee_info():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = "SELECT * FROM employee ORDER BY EmpName" 
     employeeInfo = execute_query(conn, query) # execute query in DB
     print(employeeInfo)
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/emprole', methods=['GET']) # get a single user by id
 def get_emprole_info():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = "SELECT * FROM employeerole ORDER BY RoleName" 
     emproleInfo = execute_query(conn, query) # execute query in DB
     print(emproleInfo)
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/customer', methods=['GET']) # get a single user by id
 def get_customer_info():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = "SELECT * FROM customer ORDER BY customerLoytalty" 
     emproleInfo = execute_query(conn, query) # execute query in DB
     print(emproleInfo)
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/custLoyalty', methods=['GET']) # get a single user by id
 def get_custLoyalty_info():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = "SELECT * FROM custLoyalty ORDER BY LoyaltyID" 
     emproleInfo = execute_query(conn, query) # execute query in DB
     print(emproleInfo)
+    return "GET REQUEST SUCCESSFUL"
 # -- whole table pulls --
 
 
 # --insert statements
-
 @app.route('/api/brand', methods = ['POST'])
 def api_brand_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # stores all columns except for id
@@ -138,7 +136,7 @@ def api_brand_post():
 
 @app.route('/api/custLoyalty', methods = ['POST'])
 def api_loyalty_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # stores all columns except for id
@@ -152,7 +150,7 @@ def api_loyalty_post():
 
 @app.route('/api/customer', methods = ['POST'])
 def api_customer_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # stores all columns except for id
@@ -172,7 +170,7 @@ def api_customer_post():
     
 @app.route('/api/department', methods = ['POST'])
 def api_department_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # stores all columns except for id
@@ -185,7 +183,7 @@ def api_department_post():
 
 @app.route('/api/distributor', methods = ['POST'])
 def api_distributor_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # stores all columns except for id
@@ -198,7 +196,7 @@ def api_distributor_post():
 
 @app.route('/api/employee', methods = ['POST'])
 def api_employee_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # stores all columns except for id
@@ -218,7 +216,7 @@ def api_employee_post():
 
 @app.route('/api/emprole', methods = ['POST'])
 def api_emprole_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # stores all columns except for id
@@ -234,7 +232,7 @@ def api_emprole_post():
     
 @app.route('/api/item', methods = ['POST'])
 def api_item_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # stores all columns except for id
@@ -252,7 +250,7 @@ def api_item_post():
 
 @app.route('/api/reseller', methods = ['POST'])
 def api_reseller_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # stores all columns except for id
@@ -265,9 +263,9 @@ def api_reseller_post():
     execute_query(conn, query)
     return 'Add request successful'    
 
-@app.route('/api/transaction', methods = ['POST'])
-def api_transaction_post():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+@app.route('/api/transac', methods = ['POST'])
+def api_transac_post():
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # stores all columns except for id
@@ -277,7 +275,7 @@ def api_transaction_post():
     cusid = request_data['cusid']
 
     # query to insert to table
-    query = "INSERT INTO transaction (TransNum, ItemID, date, CusID) VALUES (%s, %s, '%s', %s)" % (transnum, itemid, date, cusid)
+    query = "INSERT INTO transac (TransNum, ItemID, date, CusID) VALUES (%s, %s, '%s', %s)" % (transnum, itemid, date, cusid)
     execute_query(conn, query)
     return 'Add request successful'
 
@@ -287,7 +285,7 @@ def api_transaction_post():
 
 @app.route('/api/brand', methods = ['PUT'])
 def api_brand_put():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
@@ -304,7 +302,7 @@ def api_brand_put():
 
 @app.route('/api/custLoyalty', methods = ['PUT'])
 def api_loyalty_put():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
@@ -321,7 +319,7 @@ def api_loyalty_put():
 
 @app.route('/api/customer', methods = ['PUT'])
 def api_customer_put():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
@@ -338,7 +336,7 @@ def api_customer_put():
     
 @app.route('/api/department', methods = ['PUT'])
 def api_department_put():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
@@ -355,7 +353,7 @@ def api_department_put():
 
 @app.route('/api/distributor', methods = ['PUT'])
 def api_distributor_put():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
@@ -373,7 +371,7 @@ def api_distributor_put():
 
 @app.route('/api/employee', methods = ['PUT'])
 def api_employee_put():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
@@ -390,7 +388,7 @@ def api_employee_put():
 
 @app.route('/api/emprole', methods = ['PUT'])
 def api_emprole_put():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
@@ -407,7 +405,7 @@ def api_emprole_put():
     
 @app.route('/api/item', methods = ['PUT'])
 def api_item_put():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
@@ -424,7 +422,7 @@ def api_item_put():
 
 @app.route('/api/reseller', methods = ['PUT'])
 def api_reseller_put():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
@@ -439,9 +437,9 @@ def api_reseller_put():
         execute_query(conn, query)
     return 'Put request successful'
 
-@app.route('/api/transaction', methods = ['PUT'])
-def api_transaction_put():
-    conn = create_connection('cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com', 'admin', 'rq8s9Sk5VZfHF2C', 'cis3365spring22')
+@app.route('/api/transac', methods = ['PUT'])
+def api_transac_put():
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
 
     # id for row needed to update is stored and will remain the same, but the id key from request_data is popped for next step    
@@ -452,7 +450,7 @@ def api_transaction_put():
     for key in request_data.keys():
         val = request_data[key]
         # key and val variables change with each for loop step
-        query = "UPDATE transaction SET %s = '%s' WHERE id = %s" % (key, val, idToUpdate)
+        query = "UPDATE transac SET %s = '%s' WHERE id = %s" % (key, val, idToUpdate)
         execute_query(conn, query)
     return 'Put request successful'
 
@@ -463,8 +461,7 @@ def api_transaction_put():
 @app.route('/api/deleteItem', methods=['DELETE']) # get a single user by id
 def delete_item():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     if 'id' in request.args: # check for id in request arguments
         id = request.args['id'] # save id to local var
 
@@ -478,8 +475,7 @@ def delete_item():
 @app.route('/api/deleteBrand', methods=['DELETE']) # get a single user by id
 def delete_brand():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     if 'id' in request.args: # check for id in request arguments
         id = request.args['id'] # save id to local var
 
@@ -493,8 +489,7 @@ def delete_brand():
 @app.route('/api/deleteDepartment', methods=['DELETE']) # get a single user by id
 def delete_department():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     if 'id' in request.args: # check for id in request arguments
         id = request.args['id'] # save id to local var
 
@@ -508,8 +503,7 @@ def delete_department():
 @app.route('/api/deleteReseller', methods=['DELETE']) # get a single user by id
 def delete_reseller():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     if 'id' in request.args: # check for id in request arguments
         id = request.args['id'] # save id to local var
 
@@ -523,8 +517,7 @@ def delete_reseller():
 @app.route('/api/deleteDistrubutor', methods=['DELETE']) # get a single user by id
 def delete_distributor():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     if 'id' in request.args: # check for id in request arguments
         id = request.args['id'] # save id to local var
 
@@ -538,8 +531,7 @@ def delete_distributor():
 @app.route('/api/deleteCustomer', methods=['DELETE']) # get a single user by id
 def delete_customer():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     if 'id' in request.args: # check for id in request arguments
         id = request.args['id'] # save id to local var
 
@@ -553,8 +545,7 @@ def delete_customer():
 @app.route('/api/deleteEmpRole', methods=['DELETE']) # get a single user by id
 def delete_emprole():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     if 'id' in request.args: # check for id in request arguments
         id = request.args['id'] # save id to local var
 
@@ -568,8 +559,7 @@ def delete_emprole():
 @app.route('/api/employeeDelete', methods=['DELETE']) # get a single user by id
 def delete_employee():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     if 'id' in request.args: # check for id in request arguments
         id = request.args['id'] # save id to local var
 
@@ -583,8 +573,7 @@ def delete_employee():
 @app.route('/api/deletecustLoyalty', methods=['DELETE']) # get a single user by id
 def delete_custLoyalty():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     if 'id' in request.args: # check for id in request arguments
         id = request.args['id'] # save id to local var
 
@@ -598,8 +587,7 @@ def delete_custLoyalty():
 @app.route('/api/deletetransac', methods=['DELETE']) # get a single user by id
 def delete_transac():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     if 'id' in request.args: # check for id in request arguments
         id = request.args['id'] # save id to local var
 
@@ -611,12 +599,11 @@ def delete_transac():
     return "ERROR NO ID PROVIDED"
 # -- delete methods --
 
-# -- reports --
+# -- report methods --
 @app.route('/api/itemsSoldByDistributor', methods=['GET']) # Jacob Hui
 def itemsSoldByDistributor():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = """SELECT
             distributor.DistributorName AS 'Distributor',
@@ -630,12 +617,12 @@ def itemsSoldByDistributor():
             Join reseller ON brand.BrandReseller = reseller.ResellerID
             Join distributor ON reseller.DistributorID = distributor.DistributorID;"""
     execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/LowProfitItems', methods=['GET']) # Jacob Hui
 def LowProfitItems():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = """SELECT
             brand.BrandName AS 'Brand',
@@ -653,12 +640,13 @@ def LowProfitItems():
             WHERE item.ItemProfit < 10
             ORDER BY item.ItemProfit ASC;"""
     execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
 
 
 @app.route('/api/ItemsSoldByReseller', methods=['GET']) # Zachary Arroyo
 def ItemsSoldByReseller():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')    
     request_data = request.get_json()
 
     # for loop that repeats for each and every key in request_data
@@ -681,15 +669,15 @@ def ItemsSoldByReseller():
             Join distributor ON reseller.DistributorID = distributor.DistributorID
             WHERE reseller.{key} = '{val}'"""
         execute_query(conn, query)
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/ItemsSoldWithinAWeek', methods=['GET']) # Zachary Arroyo
 def ItemsSoldWithinAWeek():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = """SELECT
-            transac.TransNum As 'Transaction #',
+            transac.TransNum As 'transac #',
             transac.date As 'Date',
             item.itemID AS 'Item ID',
             item.ItemName AS 'Product',
@@ -705,12 +693,12 @@ def ItemsSoldWithinAWeek():
             WHERE DATE BETWEEN DATEADD(DAY, -7, CURRENT_TIMESTAMP) AND CURRENT_TIMESTAMP
             ORDER BY transac.date DESC"""
     execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/MostProfit', methods=['GET']) # Adedeji Akingbola
 def MostProfit():
     #  establish databse connection
-    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+    conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     # query string
     query = """SELECT
             transac.date As 'Date',
@@ -725,12 +713,12 @@ def MostProfit():
             Join department ON item.DeptID = department.DeptID
             ORDER BY item.ItemProfit DESC"""
     execute_query(conn, query) # execute query in DB
+    return "GET REQUEST SUCCESSFUL"
 
 # @app.route('/api/', methods=['GET']) # Zachary Arroyo
 # def ():
 #     #  establish databse connection
-#     conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
-
+#     conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
 #     # query string
 #     query = """"""
 #     execute_query(conn, query) # execute query in DB
