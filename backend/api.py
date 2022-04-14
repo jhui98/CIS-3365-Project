@@ -711,6 +711,26 @@ def ItemsSoldWithinAWeek():
             ORDER BY transac.date DESC"""
     execute_query(conn, query) # execute query in DB
 
+@app.route('/api/MostProfit', methods=['GET']) # Adedeji Akingbola
+def MostProfit():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    # query string
+    query = """SELECT
+            transac.date As 'Date',
+            item.itemID AS 'Item ID',
+            item.ItemName AS 'Product',
+            brand.BrandName AS 'Brand',
+            department.DeptName AS 'Department',
+            item.ItemProfit AS 'Profit'
+            FROM transac
+            Join item ON transac.ItemID = item.ItemID
+            Join brand ON item.BrandID = brand.BrandID
+            Join department ON item.DeptID = department.DeptID
+            ORDER BY item.ItemProfit DESC"""
+    execute_query(conn, query) # execute query in DB
+
 # @app.route('/api/', methods=['GET']) # Zachary Arroyo
 # def ():
 #     #  establish databse connection
