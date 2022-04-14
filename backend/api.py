@@ -493,8 +493,18 @@ def delete_brand():
 
 @app.route('/api/deleteDepartment', methods=['DELETE']) # get a single user by id
 def delete_department():
-    # TODO: department delete
-    pass
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
+
+        # query string
+        query = f"DELETE FROM department WHERE DeptID = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
 
 @app.route('/api/deleteReseller', methods=['DELETE']) # get a single user by id
 def delete_reseller():
@@ -513,8 +523,18 @@ def delete_reseller():
 
 @app.route('/api/deleteDistrubutor', methods=['DELETE']) # get a single user by id
 def delete_distributor():
-    # TODO: distributor delete
-    pass
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
+
+        # query string
+        query = f"DELETE FROM distributor WHERE DistributorID = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
 
 @app.route('/api/deleteCustomer', methods=['DELETE']) # get a single user by id
 def delete_customer():
@@ -531,19 +551,68 @@ def delete_customer():
         return "DELETE REQUEST SUCESSFUL"
     return "ERROR NO ID PROVIDED"
 
-
-
 @app.route('/api/deleteEmpRole', methods=['DELETE']) # get a single user by id
 def delete_emprole():
-    # TODO: emprole delete
-    pass
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
 
-# TODO: customer delete
-# TODO:  custLoyalty delete
-# TODO:  transaction delete
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
 
+        # query string
+        query = f"DELETE FROM employeeRole WHERE roleID = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
+
+@app.route('/api/customerDelete', methods=['DELETE']) # get a single user by id
+def delete_customer():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
+
+        # query string
+        query = f"DELETE FROM customer WHERE CustID = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
+
+@app.route('/api/deletecustLoyalty', methods=['DELETE']) # get a single user by id
+def delete_custLoyalty():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
+
+        # query string
+        query = f"DELETE FROM custLoyalty WHERE LoyaltyID = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
+
+@app.route('/api/deletetransac', methods=['DELETE']) # get a single user by id
+def delete_transac():
+    #  establish databse connection
+    conn = create_connection("cis3368.cwakmughsmpu.us-east-2.rds.amazonaws.com", "admin", "rq8s9Sk5VZfHF2C", "cis3365spring22")
+
+    if 'id' in request.args: # check for id in request arguments
+        id = request.args['id'] # save id to local var
+
+        # query string
+        query = f"DELETE FROM transac WHERE id = {id}" # delete where id 
+        execute_query(conn, query) # execute query in DB
+
+        return "DELETE REQUEST SUCESSFUL"
+    return "ERROR NO ID PROVIDED"
 # -- delete methods --
 
+# -- reports --
 
 
 
