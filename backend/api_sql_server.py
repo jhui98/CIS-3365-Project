@@ -1,6 +1,6 @@
 # Jacob Hui - 1664245
 # CIS 3365 - 192925 - Amirpanahi
-# Final Project - API - Fall 2021are u 
+# Final Project - API - Fall 2021
 
 import flask
 from flask import request, make_response
@@ -738,25 +738,24 @@ def PriceRangeForProducts():
     #  establish databse connection
     conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
     request_data = request.get_json()
-    
+    upper = request_data['upper']
+
     # query string
-    for key in request_data.keys():
-        val = request_data[key]
-        query = f"""SELECT
-                item.itemID AS 'Item ID',
-                item.ItemName AS 'Item Name',
-                brand.BrandName AS 'Brand Name',
-                department.DeptName AS 'Department Name',
-                item.ItemPrice AS 'Item Price',
-                item.ItemRevenue AS 'Item Revenue',
-                item.ItemProfit AS 'Item Profit'
-                FROM transac
-                Join item ON transac.ItemID = item.ItemID
-                Join brand ON item.BrandID = brand.BrandID
-                Join department ON item.DeptID = department.DeptID
-                Where ItemPrice between 0 and {val}
-                ORDER by item.ItemPrice ASC;"""
-        execute_query(conn, query) # execute query in DB
+    query = f"""SELECT
+            item.itemID AS 'Item ID',
+            item.ItemName AS 'Item Name',
+            brand.BrandName AS 'Brand Name',
+            department.DeptName AS 'Department Name',
+            item.ItemPrice AS 'Item Price',
+            item.ItemRevenue AS 'Item Revenue',
+            item.ItemProfit AS 'Item Profit'
+            FROM transac
+            Join item ON transac.ItemID = item.ItemID
+            Join brand ON item.BrandID = brand.BrandID
+            Join department ON item.DeptID = department.DeptID
+            Where ItemPrice between 0 and {upper}
+            ORDER by item.ItemPrice ASC;"""
+    execute_query(conn, query) # execute query in DB
     return "GET REQUEST SUCCESSFUL"
 
 @app.route('/api/AnnualSalesTrend', methods=['GET']) # Min Jun Kim
