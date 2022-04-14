@@ -734,7 +734,7 @@ def HighestSellingPrice():
     execute_query(conn, query) # execute query in DB
     return "GET REQUEST SUCCESSFUL"
 
-# TODO: Need input
+# TODO: Need input FOR UPPER BOUND
 @app.route('/api/PriceRangeForProducts', methods=['GET']) # Min Jun Kim
 def PriceRangeForProducts():
     #  establish databse connection
@@ -856,15 +856,6 @@ def TransactionDiscountLevel():
             join custLoyalty ON customer.customerLoyalty = custLoyalty.LoyaltyID"""
     execute_query(conn, query) # execute query in DB
     return "GET REQUEST SUCCESSFUL"
-
-# @app.route('/api/', methods=['GET']) # 
-# def ():
-#     #  establish databse connection
-#     conn = pyodbc.connect('Driver={SQL Server}; Server=172.26.54.46,1433;Database=Triple Take Solutions Project;UID=Triple;PWD=Triple12;Trusted_connection=no;')
-#     # query string
-#     query = """"""
-#     execute_query(conn, query) # execute query in DB
-
 # -- reports --
 
 
