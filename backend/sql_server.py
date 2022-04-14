@@ -19,5 +19,5 @@ def execute_query(connection, query):
         print(i)
     # print(jsonify(values))
 
-query = 'SELECT * FROM dbo.[item]'
-execute_query(conn, query)
+# query = 'SELECT * FROM dbo.[item]'
+# execute_query(conn, query)

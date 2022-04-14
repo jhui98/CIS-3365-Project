@@ -3,7 +3,6 @@
 # Final Project - API - Fall 2021are u 
 
 import flask
-from flask import jsonify
 from flask import request, make_response
 import pyodbc
 from sql_server import execute_query
